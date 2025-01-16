@@ -1,12 +1,12 @@
 import React from "react";
 import "./Navbar.css";
-import logo from "../../assets/logo.png";
+import cryptogreek from "../../assets/cryptogreek.png"
 import arrow_icon from '../../assets/arrow_icon.png'
 
 const Navbar = () => {
   return (
     <div className="navbar">
-      <img src={logo} alt="" className="logo" />
+      <img src={cryptogreek} alt="" className="cryptogreek" />
       <ul>
         <li>Home</li>
         <li>Features</li>

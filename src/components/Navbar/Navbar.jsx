@@ -1,28 +1,60 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Navbar.css";
-import cryptogreek from "../../assets/cryptogreek.png"
-import arrow_icon from '../../assets/arrow_icon.png'
+import cryptogreek from "../../assets/cryptogreek.png";
+import arrow_icon from "../../assets/arrow_icon.png";
+import { CoinContext } from "../../context/CoinContext";
 
 const Navbar = () => {
+
+  const {setCurrency} = useContext(CoinContext)
+
+  const currencyHandler = (event) => {
+    switch (event.target.value) {
+      case "usd": {
+        setCurrency({ name: "usd", symbol: "$" });
+        break;
+      }
+      case "eur": {
+        setCurrency({ name: "eur", symbol: "$" });
+        break;
+      }
+      case "pesos": {
+        setCurrency({ name: "pesos", symbol: "$" });
+        break;
+      }
+      case "queztal": {
+        setCurrency({ name: "quetzal", symbol: "$" });
+        break;
+      }
+      default: {
+        setCurrency({ name: "usd", symbol: "$" });
+        break;
+      }
+    }
+  };
+
   return (
     <div className="navbar">
-      <img src={cryptogreek} alt="" className="cryptogreek" />
+      <img src={cryptogreek} alt="Cryptogreek Logo" className="cryptogreek" />
       <ul>
         <li>Home</li>
         <li>Features</li>
         <li>Pricing</li>
-        <li>Blog</li>
+        {/* <li>Blog</li> */}
       </ul>
       <div className="nav-right">
-        <select>
+        <select onChange={currencyHandler}>
           <option value="usd">USD</option>
           <option value="eur">EUR</option>
-          <option value="Peso">PESO</option>
+          <option value="Pesos">PESOS</option>
+          <option value="quetzal">QUETZAL</option>
         </select>
-        <button>Sign up <img src={arrow_icon} alt="" /> </button>
+        <button className="signup-button">
+          Sign up <img src={arrow_icon} alt="Arrow Icon" />
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;

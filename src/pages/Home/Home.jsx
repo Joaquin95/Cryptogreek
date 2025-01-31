@@ -7,7 +7,7 @@ const Home = () => {
   const [displayCoin, setDisplayCoin] = useState([]);
 
   useEffect(() => {
-    setDisplayCoin(allCoin);
+    setDisplayCoin(allCoin || []); // Ensure no errors if allCoin is undefined
   }, [allCoin]);
 
   return (
@@ -17,7 +17,7 @@ const Home = () => {
           The Largest <br /> Crypto Marketplace
         </h1>
         <p>
-          Welcome to the worlds best cryptocurrency Marketplace. Sign up to
+          Welcome to the world's best cryptocurrency marketplace. Sign up to
           explore more about cryptos.
         </p>
         <form>
@@ -25,6 +25,7 @@ const Home = () => {
           <button type="submit">Search</button>
         </form>
       </div>
+      
       <div className="crypto-table">
         <div className="table-layout">
           <p>#</p>
@@ -33,20 +34,22 @@ const Home = () => {
           <p style={{ textAlign: "center" }}>24Hr Change</p>
           <p className="market-cap">Market Cap</p>
         </div>
-        {displayCoin.slice(0, 50).map((item, index) => (
-          <div className="table-layout" key={index}>
-            <p>{item.market_cap_rank}</p>
+        
+        {displayCoin.slice(0, 50).map((item) => (
+          <div className="table-layout" key={item.market_cap_rank || item.id}>
+            <p>{item.market_cap_rank || "N/A"}</p>
             <div>
-              <img src={item.image} alt="" />
-              <p>{item.name + " - " + item.symbol}</p>
+              <img src={item.image} alt={item.name || "Crypto"} />
+              <p>{`${item.name || "Unknown"} - ${item.symbol?.toUpperCase() || ""}`}</p>
             </div>
             <p>
-              {currency.symbol} {item.current_price.toLocaleString()}
+              {currency.symbol} {item.current_price?.toLocaleString() || "N/A"}
             </p>
-            <p className={item.price_change_percentage_24h>0 ? "positive" : "negative"}>
-              {Math.floor(item.price_change_percentage_24h * 100) / 100}</p>
+            <p className={item.price_change_percentage_24h > 0 ? "positive" : "negative"}>
+              {item.price_change_percentage_24h?.toFixed(2) || "0.00"}%
+            </p>
             <p className="market-cap">
-              {currency.symbol} {item.market_cap.toLocaleString()}
+              {currency.symbol} {item.market_cap?.toLocaleString() || "N/A"}
             </p>
           </div>
         ))}

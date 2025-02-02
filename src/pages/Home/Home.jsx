@@ -7,9 +7,20 @@ const Home = () => {
   const [displayCoin, setDisplayCoin] = useState([]);
   const [input, setInput] = useState("");
 
-  const inputHandler = (e) =>{
+  const inputHandler = (e) => {
+    setInput(e.target.value);
+  };
 
-  }
+  // Filter the coins based on the search input^^
+
+  const searchHandler = async (e) => {
+    e.preventDefault();
+    const coins = await allCoin.filter((item) => {
+      return item.name.toLowerCase().includes(input.toLowerCase());
+    });
+    setDisplayCoin(coins);
+    // Update displayCoin with the filtered coins^^
+  };
 
   useEffect(() => {
     setDisplayCoin(allCoin || []); // Ensure no errors if allCoin is undefined
@@ -25,12 +36,18 @@ const Home = () => {
           Welcome to the world's best cryptocurrency marketplace. Sign up to
           explore more about cryptos.
         </p>
-        <form>
-          <input onChange={inputHandler} value={input} type="text" placeholder="Search Crypto..." required />
+        <form onSubmit={searchHandler}>
+          <input
+            onChange={inputHandler}
+            value={input}
+            type="text"
+            placeholder="Search Crypto..."
+            required
+          />
           <button type="submit">Search</button>
         </form>
       </div>
-      
+
       <div className="crypto-table">
         <div className="table-layout">
           <p>#</p>
@@ -39,18 +56,24 @@ const Home = () => {
           <p style={{ textAlign: "center" }}>24Hr Change</p>
           <p className="market-cap">Market Cap</p>
         </div>
-        
+
         {displayCoin.slice(0, 50).map((item) => (
           <div className="table-layout" key={item.market_cap_rank || item.id}>
             <p>{item.market_cap_rank || "N/A"}</p>
             <div>
               <img src={item.image} alt={item.name || "Crypto"} />
-              <p>{`${item.name || "Unknown"} - ${item.symbol?.toUpperCase() || ""}`}</p>
+              <p>{`${item.name || "Unknown"} - ${
+                item.symbol?.toUpperCase() || ""
+              }`}</p>
             </div>
             <p>
               {currency.symbol} {item.current_price?.toLocaleString() || "N/A"}
             </p>
-            <p className={item.price_change_percentage_24h > 0 ? "positive" : "negative"}>
+            <p
+              className={
+                item.price_change_percentage_24h > 0 ? "positive" : "negative"
+              }
+            >
               {item.price_change_percentage_24h?.toFixed(2) || "0.00"}%
             </p>
             <p className="market-cap">

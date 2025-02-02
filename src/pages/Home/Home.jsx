@@ -5,6 +5,11 @@ import { CoinContext } from "../../context/CoinContext";
 const Home = () => {
   const { allCoin, currency, setCurrency } = useContext(CoinContext);
   const [displayCoin, setDisplayCoin] = useState([]);
+  const [input, setInput] = useState("");
+
+  const inputHandler = (e) =>{
+
+  }
 
   useEffect(() => {
     setDisplayCoin(allCoin || []); // Ensure no errors if allCoin is undefined
@@ -21,7 +26,7 @@ const Home = () => {
           explore more about cryptos.
         </p>
         <form>
-          <input type="text" placeholder="Search Crypto..." />
+          <input onChange={inputHandler} value={input} type="text" placeholder="Search Crypto..." required />
           <button type="submit">Search</button>
         </form>
       </div>

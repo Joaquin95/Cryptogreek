@@ -1,0 +1,19 @@
+.spinner{
+    display: grid;
+    place-self: center;
+    min-height: 80hv;
+}
+.spin{
+    width: 65px;
+    height: 65px;
+    place-self: center;
+    border: 5px solid #f3f3f3;
+    border-top-color: #4500c6 ;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}

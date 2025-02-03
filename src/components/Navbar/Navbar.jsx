@@ -3,30 +3,34 @@ import "./Navbar.css";
 import cryptogreek from "../../assets/cryptogreek.png";
 import arrow_icon from "../../assets/arrow_icon.png";
 import { CoinContext } from "../../context/CoinContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-
-  const {setCurrency} = useContext(CoinContext)
+  const { setCurrency } = useContext(CoinContext);
 
   const currencyMap = {
-    usd: {name: "usd", symbol: "$"},
-    eur: {name: "eur", symbol: "€"},
-    pesos: {name: "mxn", symbol: "$"},
+    usd: { name: "usd", symbol: "$" },
+    eur: { name: "eur", symbol: "€" },
+    pesos: { name: "mxn", symbol: "$" },
     // quetzal: {name: "gtq", symbol: "Q"}
   };
 
   const currencyHandler = (e) => {
     setCurrency(currencyMap[e.target.value] || currencyMap.usd);
   };
-  
+
   return (
     <div className="navbar">
-      <img src={cryptogreek} alt="Cryptogreek Logo" className="cryptogreek" />
-      <nav>
-        <a href="#">Home</a>
-        <a href="#">Features</a>
-        <a href="#">Pricing</a>
-      </nav>
+      <Link to={"/"}>
+        <img src={cryptogreek} alt="Cryptogreek Logo" className="cryptogreek" />
+      </Link>
+      <ul>
+        <Link to={"/"}>
+          <li>Home</li>
+        </Link>
+        <li>Features</li>
+        <li>Pricing</li>
+      </ul>
       <div className="nav-right">
         <select onChange={currencyHandler}>
           <option value="usd">USD</option>

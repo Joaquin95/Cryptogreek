@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import { CoinContext } from "../../context/CoinContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { allCoin, currency, setCurrency } = useContext(CoinContext);
@@ -67,7 +68,7 @@ const Home = () => {
         </div>
 
         {displayCoin.slice(0, 50).map((item) => (
-          <div className="table-layout" key={item.market_cap_rank || item.id}>
+          <Link to={`/coin/${item.id}`} className="table-layout" key={item.market_cap_rank || item.id}>
             <p>{item.market_cap_rank || "N/A"}</p>
             <div>
               <img src={item.image} alt={item.name || "Crypto"} />
@@ -88,7 +89,7 @@ const Home = () => {
             <p className="market-cap">
               {currency.symbol} {item.market_cap?.toLocaleString() || "N/A"}
             </p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

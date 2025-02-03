@@ -8,7 +8,12 @@ const Home = () => {
   const [input, setInput] = useState("");
 
   const inputHandler = (e) => {
-    setInput(e.target.value);
+    const { value } = e.target;
+    setInput(value);
+
+    if (!value) {
+      setDisplayCoin(allCoin);
+    }
   };
 
   // Filter the coins based on the search input^^
@@ -39,11 +44,15 @@ const Home = () => {
         <form onSubmit={searchHandler}>
           <input
             onChange={inputHandler}
+            list="coinlist"
             value={input}
             type="text"
             placeholder="Search Crypto..."
             required
           />
+          <datalist id="coinlist">{allCoin.map((item, index) => (<option key={index} value={item.name}/>))}</datalist>
+
+
           <button type="submit">Search</button>
         </form>
       </div>

@@ -9,21 +9,18 @@ const Coins = () => {
   const { currency } = useContext(CoinContext);
 
   const fetchCoinData = async () => {
-    try {
-      const options = {
-        method: "GET",
-        headers: { accept: "application/json" },
-      };
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "x-cg-demo-api-key": "CG-fBbRJNeCebyS8EKjeex4nL99",
+      },
+    };
 
-      const response = await fetch(
-        `https://pro-api.coingecko.com/api/v3/coins/${coinId}`,
-        options
-      );
-      const data = await response.json();
-      setCoinData(data);
-    } catch (error) {
-      console.error("Error fetching coin data:", error);
-    }
+    fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`, options)
+      .then((res) => res.json())
+      .then((res) => setCoinData(res))
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {

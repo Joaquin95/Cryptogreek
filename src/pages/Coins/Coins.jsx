@@ -5,32 +5,45 @@ import { CoinContext } from "../../context/CoinContext";
 
 const Coins = () => {
   const { coinId } = useParams();
-  const [coinData, setCoinData] = useState();
-  const {currency} = useContext(CoinContext);
+  const [coinData, setCoinData] = useState(null);
+  const { currency } = useContext(CoinContext);
 
   const fetchCoinData = async () => {
-    const options = {
-      method: "GET",
-      headers: { accept: "application/json" },
-    };
+    try {
+      const options = {
+        method: "GET",
+        headers: { accept: "application/json" },
+      };
 
-    fetch(`https://pro-api.coingecko.com/api/v3/coins/${coinId}`, options)
-      .then((res) => res.json())
-      .then((res) => setCoinData(res))
-      .catch((err) => console.error(err));
+      const response = await fetch(
+        `https://pro-api.coingecko.com/api/v3/coins/${coinId}`,
+        options
+      );
+      const data = await response.json();
+      setCoinData(data);
+    } catch (error) {
+      console.error("Error fetching coin data:", error);
+    }
   };
 
   useEffect(() => {
     fetchCoinData();
-  }, [currency]);
+  }, [coinId, currency]); // Added `coinId` as a dependency
 
-  if (!coinData) return <div>Loading...</div>;
-  return (
+  return coinData ? (
     <div className="coin">
       <div className="coin-name">
-        <img src={coinData.image.large} alt=""/>
-        <p><b>{coinData.name} ({coinData.symbol.toUpperCase()})</b></p>
+        <img src={coinData.image?.large} alt={coinData.name} />
+        <p>
+          <b>
+            {coinData.name} ({coinData.symbol?.toUpperCase()})
+          </b>
+        </p>
       </div>
+    </div>
+  ) : (
+    <div className="spinner">
+      <div className="spin"></div>
     </div>
   );
 };

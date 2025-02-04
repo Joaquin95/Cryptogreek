@@ -6,7 +6,7 @@ import { CoinContext } from "../../context/CoinContext";
 const Coins = () => {
   const { coinId } = useParams();
   const [coinData, setCoinData] = useState(null);
-  const [historicData, sethistoricData] = useState(null);
+  const [historicData, setHistoricData] = useState(null);
   const { currency } = useContext(CoinContext);
 
   const fetchCoinData = async () => {
@@ -34,11 +34,11 @@ const Coins = () => {
     };
 
     fetch(
-      "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30",
+      `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency.name}&days=30`,
       options
     )
       .then((res) => res.json())
-      .then((res) => sethistoricData(res))
+      .then((res) => setHistoricData(res))
       .catch((err) => console.error(err));
   };
 
@@ -46,22 +46,26 @@ const Coins = () => {
     fetchCoinData();
   }, [coinId, currency]); // Added `coinId` as a dependency
 
-  return coinData ? (
-    <div className="coin">
-      <div className="coin-name">
-        <img src={coinData.image?.large} alt={coinData.name} />
-        <p>
-          <b>
-            {coinData.name} ({coinData.symbol?.toUpperCase()})
-          </b>
-        </p>
+  if ((coinData && historicData)) {
+    return (
+      <div className="coin">
+        <div className="coin-name">
+          <img src={coinData.image?.large} alt={coinData.name} />
+          <p>
+            <b>
+              {coinData.name} ({coinData.symbol?.toUpperCase()})
+            </b>
+          </p>
+        </div>
       </div>
-    </div>
-  ) : (
-    <div className="spinner">
-      <div className="spin"></div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="spinner">
+        <div className="spin"></div>
+      </div>
+    );
+  }
 };
 
 export default Coins;

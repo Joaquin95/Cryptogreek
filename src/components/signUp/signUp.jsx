@@ -20,9 +20,27 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
+    if (!formData.email || !formData.Password) {
       setMessage("Passwords do not match");
       return;
+    }
+
+    try {
+      const response = await fetch("https://your-backend-api.com/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessage("Sign-up successful!");
+        setTimeout(() => navigate("/"), 2000);
+      } else {
+        setMessage(data.error || "Sign-up failed.");
+      }
+    } catch (error) {
+      setMessage("Network error. Try again");
     }
   };
 
@@ -52,7 +70,7 @@ const SignUp = () => {
           onChange={handleChange}
           required
         />
-         <input
+        <input
           type="password"
           name="confirmPassword"
           placeholder="Confirm Password"

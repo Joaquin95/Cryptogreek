@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Coins.css";
 import { useParams } from "react-router-dom";
 import { CoinContext } from "../../context/CoinContext";
+import LineChart from "../../components/LineChart/LineChart";
 
 const Coins = () => {
   const { coinId } = useParams();
@@ -34,7 +35,9 @@ const Coins = () => {
     };
 
     fetch(
-      `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency?.name || "usd"}&days=30`,
+      `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${
+        currency?.name || "usd"
+      }&days=20&interval=daily`,
       options
     )
       .then((res) => res.json())
@@ -57,6 +60,20 @@ const Coins = () => {
               {coinData.name} ({coinData.symbol?.toUpperCase()})
             </b>
           </p>
+        </div>
+        <div className="coin-chart">
+          <LineChart historicData={historicData} />
+        </div>
+
+        <div className="coin-info">
+          <ul>
+            <li>Crypto Market Rank</li>
+            <li>{coinData.market_cap_rank}</li>
+          </ul>
+          <ul>
+            <li>Current Price</li>
+            <li>{currency.symbol} {coinData.market_data.current_price[currency.name].toLocaleString()}</li>
+          </ul>
         </div>
       </div>
     );

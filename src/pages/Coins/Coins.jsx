@@ -34,7 +34,7 @@ const Coins = () => {
     };
 
     fetch(
-      `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency.name}&days=30`,
+      `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency?.name || "usd"}&days=30`,
       options
     )
       .then((res) => res.json())
@@ -44,9 +44,10 @@ const Coins = () => {
 
   useEffect(() => {
     fetchCoinData();
+    fetchHistoricData();
   }, [coinId, currency]); // Added `coinId` as a dependency
 
-  if ((coinData && historicData)) {
+  if (coinData && historicData) {
     return (
       <div className="coin">
         <div className="coin-name">

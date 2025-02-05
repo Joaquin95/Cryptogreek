@@ -83,3 +83,7 @@
     color: #ff0000;
     text-align: right;
 }
+.table-container {
+    overflow-x: auto;
+  }
+  

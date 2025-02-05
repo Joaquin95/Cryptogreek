@@ -47,7 +47,7 @@
   }
   .coin-info{
     max-width: 600px;
-    margin: 200px auto;
+    margin: 50px auto;
     display: flex;
     flex-direction: column;
   }
@@ -57,4 +57,7 @@
     padding: 10px 0px;
     border-bottom: 1px solid #5f5d5f;
     list-style: none;
+  }
+  .coin-info ul li:last-child{
+    font-weight: 300;
   }

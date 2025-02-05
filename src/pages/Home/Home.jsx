@@ -36,7 +36,7 @@ const Home = () => {
     <div className="home">
       <div className="hero">
         <h1>
-          My First <br /> Crypto Marketplace Project
+          My First Crypto Marketplace Project
         </h1>
         <p>
           Welcome to the world's best cryptocurrency marketplace. Sign up to

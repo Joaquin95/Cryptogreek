@@ -12,7 +12,6 @@ const Navbar = () => {
     usd: { name: "usd", symbol: "$" },
     eur: { name: "eur", symbol: "€" },
     pesos: { name: "mxn", symbol: "$" },
-    // quetzal: {name: "gtq", symbol: "Q"}
   };
 
   const currencyHandler = (e) => {
@@ -36,7 +35,6 @@ const Navbar = () => {
           <option value="usd">USD</option>
           <option value="eur">EUR</option>
           <option value="pesos">PESOS</option>
-          {/* <option value="quetzal">QUETZAL</option> */}
         </select>
         <button className="signup-button">
           Sign up <img src={arrow_icon} alt="Arrow Icon" />

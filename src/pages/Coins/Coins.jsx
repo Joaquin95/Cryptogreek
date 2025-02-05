@@ -72,7 +72,21 @@ const Coins = () => {
           </ul>
           <ul>
             <li>Current Price</li>
-            <li>{currency.symbol} {coinData.market_data.current_price[currency.name].toLocaleString()}</li>
+            <li>
+              {currency.symbol}
+              {coinData.market_data.current_price[
+                currency.name
+              ].toLocaleString()}
+            </li>
+          </ul>
+          <ul>
+            <li>MarketCap</li>
+            <li>
+              {currency.symbol}
+              {coinData.market_data.market_cap[
+                currency.name
+              ].toLocaleString()}
+            </li>
           </ul>
         </div>
       </div>

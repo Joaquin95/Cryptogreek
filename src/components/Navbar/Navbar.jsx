@@ -41,6 +41,9 @@ const Navbar = () => {
             Sign up <img src={arrow_icon} alt="Arrow Icon" />
           </button>
         </Link>
+        <button className="login-button">
+          Login <img src={arrow_icon} alt="Arrow Icon" />
+        </button>
       </div>
     </div>
   );

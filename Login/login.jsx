@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import "./login.css";
 
 const login = () => {
     const [formData, setFormData] = useState({
@@ -27,7 +28,7 @@ const login = () => {
 
 
   return (
-    <div className="signup-container">
+    <div className="login-container">
       <h2>Login</h2>
       {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>

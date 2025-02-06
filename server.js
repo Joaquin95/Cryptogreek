@@ -16,9 +16,13 @@ app.use(cors());
 app.use("/api/auth", authroutes);
 
 
+app.get("/", (req, res) => {
+    res.send("Welcome to the Cryptogreek API");
+});
+
 //MongoBD Connection
 mongoose
-.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch((err) => console.log(err));
 

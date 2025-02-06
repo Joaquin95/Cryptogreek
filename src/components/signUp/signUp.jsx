@@ -4,7 +4,6 @@ import "./SignUp.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -49,13 +48,6 @@ const SignUp = () => {
       <h2>Sign Up</h2>
       {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange={handleChange}
-          required
-        />
         <input
           type="email"
           name="email"

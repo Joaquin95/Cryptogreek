@@ -9,7 +9,16 @@ const app = express();
 
 //middleware
 app.use(express.json());
-app.use(cors());
+
+//Cors confi for frontend 
+const corsOptions = {
+    origin: "http://localhost:5173", //frontend origin
+    methods: "GET, POST, PUT, DELETE",
+    allowedHeaders: "Content-Type, Authorization",
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 
 
 //routes
@@ -17,7 +26,7 @@ app.use("/api/auth", authroutes);
 
 
 app.get("/", (req, res) => {
-    res.send("Welcome to the Cryptogreek API");
+    res.send("Welcome to the Cryptogreek API Test");
 });
 
 //MongoBD Connection

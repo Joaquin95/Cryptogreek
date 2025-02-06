@@ -33,11 +33,11 @@ const SignUp = () => {
       const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+        body: JSON.stringify({ email: userEmail, password: userPassword }),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("Error:", error));
 
       const data = await response.json();
       if (response.ok) {

@@ -36,21 +36,18 @@ router.post("/signup", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 
-  if (password !== confirmPassword) {
-    return res.status(400).json({ error: "Passwords do not match" });
-  }
 
-  try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+  // try {
+  //   const salt = await bcrypt.genSalt(10);
+  //   const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = new User({email, password: hashedPassword });
-    await newUser.save();
+  //   const newUser = new User({email, password: hashedPassword });
+  //   await newUser.save();
 
-    res.json({ message: "User registered successfully!" });
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
-  }
+  //   res.json({ message: "User registered successfully!" });
+  // } catch (error) {
+  //   res.status(500).json({ error: "Server error" });
+  // }
 });
 
 export default router;

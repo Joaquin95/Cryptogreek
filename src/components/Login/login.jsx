@@ -4,7 +4,6 @@ import "./Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -20,7 +19,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.Password) {
+    if (!formData.email || !formData.password) {
       setMessage("Passwords do not match");
       return;
     }
@@ -45,17 +44,10 @@ const Login = () => {
   };
 
   return (
-    <div className="signup-container">
+    <div className="Login-container">
       <h2>Login </h2>
       {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange={handleChange}
-          required
-        />
         <input
           type="email"
           name="email"

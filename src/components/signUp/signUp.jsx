@@ -19,7 +19,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password  || !formData.confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       setMessage("Passwords do not match");
       return;
     }
@@ -28,7 +28,10 @@ const SignUp = () => {
       const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
       });
 
       const data = await response.json();

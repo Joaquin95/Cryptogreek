@@ -5,11 +5,7 @@ import pool from "../db.js"
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
-    const {email, password, confirmPassword } = req.body;
-
-    if (password !== confirmPassword) {
-        return res.status(400).json({ error: "Passwords do not match" });
-    }
+    const {email, password} = req.body;
 
     try {
         const userExists = await pool.query("SELECT * FROM users WHERE email = $1", [email]);

@@ -6,7 +6,6 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const [message, setMessage] = useState("");
@@ -20,12 +19,12 @@ const Login = () => {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
-      setMessage("Passwords do not match");
+      setMessage("Email and password are required.");
       return;
     }
 
     try {
-      const response = await fetch("https://your-backend-api.com/signup", {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -33,10 +32,11 @@ const Login = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setMessage("Sign-up successful!");
-        setTimeout(() => navigate("/"), 2000);
+        setMessage("Login successful!");
+        localStorage.setItem("token", data.token);
+        setTimeout(() => navigate("/dashboard"), 2000);
       } else {
-        setMessage(data.error || "Sign-up failed.");
+        setMessage(data.error || "Login failed.");
       }
     } catch (error) {
       setMessage("Network error. Try again");
@@ -59,13 +59,6 @@ const Login = () => {
           type="password"
           name="password"
           placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
           onChange={handleChange}
           required
         />

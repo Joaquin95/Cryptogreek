@@ -6,6 +6,7 @@ import Coin from "./pages/Coins/Coins";
 import Footer from "./components/Footer/Footer";
 import SignUp from "./components/signUp/signUp";
 import Login from "./components/Login/login";
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/coin/:coinId" element={<Coin />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       </Routes>
       <Footer />
     </div>

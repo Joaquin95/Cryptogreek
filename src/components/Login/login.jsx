@@ -33,7 +33,7 @@ const Login = () => {
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
-        navigate("/dashboard"); // Redirect immediately
+        navigate("/dashboard"); 
       } else {
         setMessage(data.error || "Invalid email or password.");
       }

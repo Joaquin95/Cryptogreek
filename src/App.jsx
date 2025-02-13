@@ -6,7 +6,7 @@ import Coin from "./pages/Coins/Coins";
 import Footer from "./components/Footer/Footer";
 import SignUp from "./components/signUp/signUp";
 import Login from "./components/Login/login";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoutes";
 
 const App = () => {

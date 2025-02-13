@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import "./Login.css";
+import "./Login.css";
 
-const SignUp = () => {
+const Login = () => {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
-
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -20,28 +17,41 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Passwords do not match");
+    if (!formData.email || !formData.password) {
+      setMessage("Email and password are required.");
       return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        navigate("/dashboard"); // Redirect immediately
+      } else {
+        setMessage(data.error || "Invalid email or password.");
+      }
+    } catch (error) {
+      setMessage("Network error. Please try again.");
     }
   };
 
   return (
-    <div className="signup-container">
+    <div className="Login-container">
       <h2>Login</h2>
       {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange={handleChange}
-          required
-        />
-        <input
           type="email"
           name="email"
           placeholder="Email"
+          value={formData.email}
           onChange={handleChange}
           required
         />
@@ -49,13 +59,7 @@ const SignUp = () => {
           type="password"
           name="password"
           placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-         <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
+          value={formData.password}
           onChange={handleChange}
           required
         />
@@ -65,4 +69,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

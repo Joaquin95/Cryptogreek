@@ -4,7 +4,7 @@ import "./Dashboard.css"; // Ensure this file exists
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const user = { name: "Joaquin", email: "joaquin@example.com" }; 
+  const user = { name: "Joaquin", email: "joaquin@example.com" };
 
   const handleLogout = () => {
     localStorage.removeItem("token");

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SignUp.css";
+import "./signUp.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +26,7 @@ const SignUp = () => {
 
     try {
       const API_URL = import.meta.env.VITE_API_URL;
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
+      const response = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -34,6 +34,10 @@ const SignUp = () => {
           password: formData.password,
         }),
       });
+
+      if (!response.ok) {
+        throw new Error("Server error, unable to sign up.");
+      }
 
       const data = await response.json();
       if (response.ok) {

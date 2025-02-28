@@ -34,6 +34,7 @@ const SignUp = () => {
           password: formData.password,
         }),
       });
+      console.log(API_URL);
 
       if (!response.ok) {
         throw new Error("Server error, unable to sign up.");
